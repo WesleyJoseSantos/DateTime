@@ -73,6 +73,22 @@ public:
     bool operator==(const TimeClock& tc){
         return h == tc.h && m == tc.m && s == tc.s;
     }
+    
+    TimeClock operator+(const TimeClock& tc){
+        int hours = h + tc.h;
+        int mins = m + tc.m;
+        int secs = s + tc.s;
+
+        if(secs > 60){
+            mins++;
+            secs = 60 - secs;
+        }
+
+        if(mins > 59){
+            hours++;
+            mins =  60 - mins;
+        }
+    }
 
     void operator=(const TimeClock& tc){
         h = tc.h;
@@ -86,12 +102,22 @@ public:
         s = 0;
     }
 
-    void fromTimestamp(time_t time){
+    void fromY2K(time_t time){
         struct tm timeinfo = { 0 };
         localtime_r(&time, &timeinfo);
         h = timeinfo.tm_hour;
         m = timeinfo.tm_min;
         s = timeinfo.tm_sec;
+    }
+
+    void fromTimestamp(time_t timestamp){
+        h = timestamp / 3600;
+        m = (timestamp - (h * 3600)) / 60;
+        s = ((timestamp - (h * 3600)) - m * 60);
+    }
+
+    time_t toTimestamp(){
+        return s + m * 60 + h * 3600;
     }
 
     String toString(){
