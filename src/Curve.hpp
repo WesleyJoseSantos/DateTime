@@ -57,7 +57,9 @@ public:
         time_t minInterval = interval.getDt() / size;
         if(minInterval == 0) return 0;
 
-        t = interval.limitValue(t);
+        if(t < interval.getStart()) return points[0];
+        if(t > interval.getEnd()) return points[size - 1];
+
         long p1 = (t - interval.getStart()) / minInterval;
         long p2 = p1 + 1;
 
