@@ -88,6 +88,8 @@ public:
             hours++;
             mins =  60 - mins;
         }
+
+        return TimeClock(hours, mins, secs);
     }
 
     void operator=(const TimeClock& tc){
