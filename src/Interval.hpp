@@ -29,12 +29,12 @@ public:
     }
 
     Interval(time_t start, int duration){
-        setCurve(start, start + duration);
+        setCurve(start, start + duration*60);
     }
 
     void setCurve(time_t start, time_t end){
         this->start = start;
-        
+        this->end = end;
     }
 
     void setStart(time_t start){
@@ -43,6 +43,12 @@ public:
 
     void setEnd(time_t end){
         this->end = end;
+    }
+
+    time_t limitValue(time_t valueToLimit){
+        if(valueToLimit < start) return start;
+        if(valueToLimit > end) return end;
+        return valueToLimit;
     }
 
     time_t getStart(){
@@ -57,7 +63,7 @@ public:
         return end - start;
     }
 
-    time_t scale(int x, int min, int max){
+    time_t scale(long x, long min, long max){
         return map(x, min, max, start, end);
     }
 };
