@@ -45,12 +45,6 @@ public:
         this->end = end;
     }
 
-    time_t limitValue(time_t valueToLimit){
-        if(valueToLimit < start) return start;
-        if(valueToLimit > end) return end;
-        return valueToLimit;
-    }
-
     time_t getStart(){
         return start;
     }
