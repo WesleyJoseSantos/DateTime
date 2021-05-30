@@ -22,10 +22,16 @@ class Curve
 {
 private:
     int size;
-    int *points;
     Interval interval;
+    int *points;
 public:
     Curve() {}
+
+    Curve(int size, String start, String end, int *points){
+        this->size = size;
+        this->interval = Interval(start, end);
+        this->points = points;
+    }
 
     Curve(int *points, Interval interval){
         this->size = DEFAULT_SIZE;

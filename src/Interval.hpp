@@ -24,6 +24,11 @@ public:
 
     }
 
+    Interval(String timeStart, String timeEnd){
+        this->start = TimeClock::fromShortString(timeStart).toTimestamp();
+        this->end = TimeClock::fromShortString(timeEnd).toTimestamp();
+    }
+
     Interval(TimeClock timeStart, TimeClock timeEnd){
         setInterval(timeStart.toTimestamp(), timeEnd.toTimestamp());
     }
