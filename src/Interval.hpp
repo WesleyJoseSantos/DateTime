@@ -24,15 +24,19 @@ public:
 
     }
 
+    Interval(TimeClock timeStart, TimeClock timeEnd){
+        setInterval(timeStart.toTimestamp(), timeEnd.toTimestamp());
+    }
+
     Interval(time_t start, time_t end) {
-        setCurve(start, end);
+        setInterval(start, end);
     }
 
     Interval(time_t start, int duration){
-        setCurve(start, start + duration*60);
+        setInterval(start, start + duration*60);
     }
 
-    void setCurve(time_t start, time_t end){
+    void setInterval(time_t start, time_t end){
         this->start = start;
         this->end = end;
     }
