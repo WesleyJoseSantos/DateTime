@@ -25,9 +25,7 @@ private:
     int8_t s;
 public:
     TimeClock() {
-        time_t now = 0;
-        time(&now);
-        fromTimestamp(now);        
+
     }
 
     TimeClock(time_t time) {
@@ -38,6 +36,39 @@ public:
         h = hours;
         m = minutes;
         s = seconds;
+    }
+
+    static TimeClock fromRtc(){
+        TimeClock tc;
+        time_t now = 0;
+        time(&now);
+        tc.fromTimestamp(now);
+        return tc;
+    }
+
+    static TimeClock fromLongString(String hhmmss){
+        TimeClock tc;
+        String hs = hhmmss.substring(0, 2);
+        String ms = hhmmss.substring(3, 5);
+        String ss = hhmmss.substring(6, 8);
+
+        Serial.println(hs);
+        Serial.println(ms);
+        Serial.println(ss);
+
+        tc.h = hs.toInt();
+        tc.m = ms.toInt();
+        tc.s = ss.toInt();
+        return tc;
+    }
+
+    static TimeClock fromShortString(String hhmm){
+        TimeClock tc;
+        String hs = hhmm.substring(0, 2);
+        String ms = hhmm.substring(3, 5);
+        tc.h = hs.toInt();
+        tc.m = ms.toInt();
+        return tc;
     }
 
     bool operator<(const TimeClock& tc){
